@@ -1,70 +1,94 @@
-# Getting Started with Create React App
+![Antra-logo](https://github.com/user-attachments/assets/9db2d170-9512-4225-b245-e2a71c13f171)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Assignment - 3
 
-## Available Scripts
+===========================================================================
 
-In the project directory, you can run:
+<!-- What are some differences between class and functional components?
+Explain what lifecycle is in a simple way. How do you manage it in class and functional components?
+Explain immutability in one sentence. -->
 
-### `npm start`
+## What are some differences between class and functional components?
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+🎯Class Components are defined using ES6 class syntax and requires the render() method to return JSX. Functional components are defines using plain Javascript functions and they return jsx directly from the function body.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+🎯 Class Components use this.state to define state and this.setState() to update it for state Management. Functional components use useState hook for the state management.
 
-### `npm test`
+🎯 Class Components use and have access to lifecycle methods such as componentDidMount, componentDidUpdate, and componentWillUnmount. Functional components use useEffect hook to handle side effects.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+🎯 Class Components Can become complex in terms of structure and readability due to state and lifecycle methods. Functional Components are typically simpler and more readable, especially for components that don't need state or complex lifecycle logic.
 
-### `npm run build`
+🎯 Class Components may have slight performance overhead due to this binding and the complexity of lifecycle methods. Functional Components are generally more performant due to the absence of this binding and simpler structure.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+🎯 Class Components do not support hooks; rely on traditional state and lifecycle methods. Functional Components can leverage hooks (useState, useEffect, useContext, etc.) for powerful and flexible component logic.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Explain what lifecycle is in a simple way. How do you manage it in class and functional components?
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Life Cycle:
 
-### `npm run eject`
+In React, the lifecycle of a component refers to the series of events from the moment the component is created and added to the DOM (Document Object Model), updated and to the moment it is removed.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+🎯 Class components use specific methods to handle different lifecycle stages:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**Mounting:**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- constructor(): Initialize state.
+- render(): Return JSX.
+- componentDidMount(): Run after component is mounted, good for initial data fetching.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+**Updating:**
 
-## Learn More
+- render(): Re-render with new state/props.
+- componentDidUpdate(): Run after component updates.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+**Unmounting:**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- componentWillUnmount(): Clean up (e.g., remove event listeners) before component is removed.
 
-### Code Splitting
+```jsx
+class MyComponent extends React.Component {
+  componentDidMount() {
+    console.log("Component mounted");
+  }
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+  componentDidUpdate() {
+    console.log("Component updated");
+  }
 
-### Analyzing the Bundle Size
+  componentWillUnmount() {
+    console.log("Component will unmount");
+  }
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+  render() {
+    return <div>Hello World</div>;
+  }
+}
+```
 
-### Making a Progressive Web App
+🎯 Functional components use the useEffect hook to handle lifecycle-related logic:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- The useEffect hook combines componentDidMount, componentDidUpdate, and componentWillUnmount into a single API.
+- You can have multiple useEffect hooks in a single component to separate concerns.
+- In the functional component example, the useEffect hook allows you to perform side effects (like data fetching, subscriptions, or DOM manipulation) after the component renders.
+- The cleanup function (returned by useEffect) runs before the component unmounts or before the effect runs again.
 
-### Advanced Configuration
+```jsx
+import React, { useEffect } from "react";
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+function MyComponent() {
+  useEffect(() => {
+    console.log("Component mounted or updated");
 
-### Deployment
+    // This return function is equivalent to componentWillUnmount
+    return () => {
+      console.log("Component will unmount");
+    };
+  }, []); // Empty dependency array means this effect runs once on mount
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+  return <div>Hello World</div>;
+}
+```
 
-### `npm run build` fails to minify
+## Explain immutability in one sentence.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+🎯 Immutability is the concept of not changing the original data, but instead creating a new copy with the desired modifications.
